@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
               ),
               const Spacer(),
               OutlinedButton(
-                onPressed: () => context.read<AdviceCubit>().fetch(),
+                onPressed: () => context.read<AdviceCubit>().fetchRandom(),
                 child: const Text('Press me!'),
               ),
             ],

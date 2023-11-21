@@ -12,10 +12,23 @@ class AdviceCubit extends Cubit<AdviceCubitState> {
 
   // final AdviceRepo repository;
 
-  void fetch() async {
+  void fetchRandom() async {
     emit(const AdviceStateLoading());
 
     final result = await useCase.getRandomAdvice();
+
+    if (result.isEmpty) {
+      emit(const AdviceStateError(message: serverFailureMessage));
+      return;
+    }
+
+    emit(AdviceStateLoaded(advice: result));
+  }
+
+  Future<void> fetch({String id = ''}) async {
+    emit(const AdviceStateLoading());
+
+    final result = await useCase.getAdvice(id: id);
 
     if (result.isEmpty) {
       emit(const AdviceStateError(message: serverFailureMessage));

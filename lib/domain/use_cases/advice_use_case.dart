@@ -11,8 +11,8 @@ class AdviceUseCase {
     return result.advice;
   }
 
-  Future<String> getAdvice({String? id}) async {
-    final result = await _repository.getAdvice();
+  Future<String> getAdvice({String id = ''}) async {
+    final result = await _repository.getAdvice(id: id);
 
     return result.advice;
   }

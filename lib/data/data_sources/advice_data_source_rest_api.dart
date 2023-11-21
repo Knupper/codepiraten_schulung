@@ -10,15 +10,17 @@ class AdviceDataSourceRestApi implements AdviceRemoteDataSource {
   final http.Client client;
 
   @override
-  Future<AdviceDto> getAdvice() async {
+  Future<AdviceDto> getAdvice({String id = ''}) async {
     final response = await client.get(
-      Uri.parse('https://api.flutter-community.com/api/v1/advice'),
+      Uri.parse('https://api.flutter-community.com/api/v1/advice/$id'),
       headers: {
         'accept': 'application/json',
       },
     );
 
     // TODO error handling
+    // TODO Json serialization
+
 
     return Future.value(AdviceDto.fromJson(jsonDecode(response.body)));
   }

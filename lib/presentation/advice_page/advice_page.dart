@@ -2,6 +2,8 @@ import 'package:codepiraten/domain/repositories/advice_repo.dart';
 import 'package:codepiraten/domain/use_cases/advice_use_case.dart';
 import 'package:codepiraten/presentation/advice_page/cubit/advicer_cubit.dart';
 import 'package:codepiraten/presentation/advice_page/widgets/advice_field.dart';
+import 'package:codepiraten/presentation/advice_page/widgets/responsive_text_list.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +30,7 @@ class AdvicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Spacer(),
         BlocBuilder<AdviceCubit, AdviceCubitState>(
           builder: (builderContext, state) {
             switch (state) {
@@ -42,10 +45,26 @@ class AdvicePage extends StatelessWidget {
             }
           },
         ),
-        OutlinedButton(
-          onPressed: () => context.read<AdviceCubit>().fetch(),
-          child: const Text('Press me!'),
+        const Spacer(),
+        OutlinedButton(onPressed: () => context.read<AdviceCubit>().fetch(), child: Text('example'.tr())),
+        const SizedBox.square(dimension: 16),
+        OutlinedButton(onPressed: () => context.read<AdviceCubit>().fetch(id: '42'), child: Text('button'.tr())),
+        const Spacer(),
+        const Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(flex: 5, child: Text('Alter', maxLines: 1, overflow: TextOverflow.ellipsis)),
+            Expanded(
+              flex: 5,
+              child: Text(
+                '23',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
+        const ResponsiveTextList(),
       ],
     );
   }
